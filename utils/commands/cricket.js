@@ -126,40 +126,43 @@ const live_match_controller = async () => {
 
 
 }
-
+  
 async function getLiveScores(data,chatId) {
-
-    data.forEach(async (series) => {
+    for (let i = 0; i < data.length; i++) {
+        const series = data[i];
+        console.log("in series");
         let liveScores = '';
-      liveScores += `📢 *Series:* ${series.series_name}\n`;
-  
-      series.matches_array.forEach(match => {
-        const {
-          team,
-          matchStage,
-          time: { formattedTime },
-          score_data: {
-            Team1,
-            Team2,
-            Team1Score,
-            Team2Score,
-            Live_Result
-          }
-        } = match;
-  
-        liveScores += `\n🏏 *Match:* ${matchStage.trim()}\n`;
-        liveScores += `👥 *Teams:* ${Team1} vs ${Team2}\n`;
-        liveScores += `🕒 *Time:* ${formattedTime}\n`;
-        liveScores += `📊 *Scores:*\n`;
-        liveScores += `   - ${Team1}: ${Team1Score}\n`;
-        liveScores += `   - ${Team2}: ${Team2Score}\n`;
-        liveScores += `🔴 *Live Result:* ${Live_Result}\n`;
-        liveScores += `----------------------------------------\n`;
-      });
-  
-      liveScores += `\n`;
-      await sendMessage(chatId,liveScores)
-    });
+        liveScores += `📢 *Series:* ${series.series_name}\n`;
+    
+        for (let j = 0; j < series.matches_array.length; j++) {
+            const match = series.matches_array[j];
+            const {
+                team,
+                matchStage,
+                time: { formattedTime },
+                score_data: {
+                    Team1,
+                    Team2,
+                    Team1Score,
+                    Team2Score,
+                    Live_Result
+                }
+            } = match;
+    
+            liveScores += `\n🏏 *Match:* ${matchStage.trim()}\n`;
+            liveScores += `👥 *Teams:* ${Team1} vs ${Team2}\n`;
+            liveScores += `🕒 *Time:* ${formattedTime}\n`;
+            liveScores += `📊 *Scores:*\n`;
+            liveScores += `   - ${Team1}: ${Team1Score}\n`;
+            liveScores += `   - ${Team2}: ${Team2Score}\n`;
+            liveScores += `🔴 *Live Result:* ${Live_Result}\n`;
+            liveScores += `----------------------------------------\n`;
+        }
+    
+        liveScores += `\n`;
+        await sendMessage(chatId, liveScores);
+    }
+    
 
 }
 
