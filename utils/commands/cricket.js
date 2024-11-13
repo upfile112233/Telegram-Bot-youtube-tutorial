@@ -1,6 +1,10 @@
 import { load } from 'cheerio';
 import { sendMessage } from "../telegram";
 
+export const config = {
+    maxDuration: 60,
+};
+
 const live_match_controller = async () => {
     const request = await fetch('https://www.cricbuzz.com/cricket-match/live-scores');
     const body = await request.text();
