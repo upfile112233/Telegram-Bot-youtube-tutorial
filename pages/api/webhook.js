@@ -5,10 +5,6 @@ import { helpCommand } from "@/utils/commands/help";
 import { pingCommand } from "@/utils/commands/ping";
 import { sendMessage } from "@/utils/telegram";
 
-export const config = {
-  maxDuration: 60,
-};
-
 export default async function handler(req, res) {
   if (req.method=="POST") {
     const chatId = req.body.message.chat.id;
